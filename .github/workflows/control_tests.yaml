@@ -17,11 +17,15 @@ jobs:
         run: |
           pip install pytest
           pip install flake8
+          pip install pycodestyle
+
+      - name: Pep8 style
+        run: |
+          pycodestyle *.py
 
       - name: Run tests
         run: |
           pytest
-
 
       - name: Run flake8
         uses: py-actions/flake8@v2
