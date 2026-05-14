@@ -1,0 +1,24 @@
+name: Test
+on: workflow_dispatch
+jobs:
+  create_commit:
+    name: Create commit
+    runs-on: ubuntu-latest
+    steps:
+      - name: push a file to our repository
+        run: |
+          pwd
+          ls -la
+          git init
+          git remote add origin "https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git"
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git fetch
+          git checkout main
+          git branch --set-upstream-to=origin/main
+          git pull
+          pytest >> log_pytest.txt
+          ls -a
+          git add .
+          git commit -m "random file from actions"
+          git push
