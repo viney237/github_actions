@@ -5,12 +5,18 @@ jobs:
     name: Create commit
     runs-on: ubuntu-latest
     steps:
+      - name: Show GitHub variables
+        run: |
+          echo "Actor: $GITHUB_ACTOR"
+          echo "Repository: $GITHUB_REPOSITORY"
+          echo "Workflow: $GITHUB_WORKFLOW"
+
       - name: push a file to our repository
         run: |
           pwd
           ls -la
           git init
-          git remote add origin "https://$ACTOR:${{ secrets.TOKEN }}@github.com/$REPOSITORY.git"
+          git remote add origin "https://${GITHUB_ACTOR}:${{ secrets.TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git fetch
